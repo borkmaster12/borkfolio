@@ -3,12 +3,19 @@ name = "app"
 version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
-readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
 ruff = "^0.0.288"
-fastapi = {extras = ["all"], version = "^0.103.1"}
+fastapi = "0.70.0"
+requests = "2.26.0"
+uvicorn = "0.15.0"
+python-dotenv = "0.19.1"
+aiofiles = "0.7.0"
+python-multipart = "0.0.5"
+jinja2 = "3.0.2"
+markdown = "3.3.4"
+pytest = "6.2.5"
 
 
 [build-system]
