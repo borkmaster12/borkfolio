@@ -30,7 +30,10 @@
   				"editor.tabSize": 4  
 				},
 				"python.analysis.typeCheckingMode": "basic",
-				"python.defaultInterpreterPath": "./src/.venv/bin/python3.11"
+				"python.defaultInterpreterPath": "./src/.venv/bin/python3.11",
+				"files.exclude": {
+					"**/__pycache__": true
+				}
 			},
 			
 			// Add the IDs of extensions you want installed when the container is created.
