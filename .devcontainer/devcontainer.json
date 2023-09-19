@@ -29,7 +29,7 @@
 					"editor.insertSpaces": true,
   				"editor.tabSize": 4  
 				},
-				"python.analysis.typeCheckingMode": "strict",
+				"python.analysis.typeCheckingMode": "basic",
 				"python.defaultInterpreterPath": "./src/.venv/bin/python3.11"
 			},
 			
@@ -46,7 +46,8 @@
 				"ms-azuretools.vscode-docker",
 				"albert.TabOut",
 				"Codeium.codeium",
-				"charliermarsh.ruff"
+				"charliermarsh.ruff",
+				"samuelcolvin.jinjahtml"
 			]
 		}
 	}
