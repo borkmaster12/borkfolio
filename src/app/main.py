@@ -9,7 +9,7 @@ from app.routers import index
 app = FastAPI()
 app.include_router(index.router)
 
-app.mount("/static", StaticFiles(directory="src/app/static", html=True), name="static")
+app.mount("/static", StaticFiles(directory="src/app/static"), name="static")
 templates: Jinja2Templates = get_templates()
 
 
