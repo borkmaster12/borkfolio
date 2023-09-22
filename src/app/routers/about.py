@@ -7,9 +7,9 @@ router = APIRouter()
 templates: Jinja2Templates = get_templates()
 
 
-@router.get("/", response_class=HTMLResponse)
+@router.get("/about", response_class=HTMLResponse)
 async def home(request: Request):
-    data = {"page": "Borkfolio - Home"}
+    data = {"page": "Borkfolio - About Site"}
     return templates.TemplateResponse(
-        name="index.html", context={"request": request, "data": data}
+        name="about.html", context={"request": request, "data": data}
     )
