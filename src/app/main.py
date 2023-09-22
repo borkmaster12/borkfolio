@@ -4,11 +4,10 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from app.jinja2.templating import get_templates
-from app.routers import about, index
+from app.routers import html
 
-app = FastAPI()
-app.include_router(about.router)
-app.include_router(index.router)
+app = FastAPI(swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"})
+app.include_router(html.router)
 
 
 app.mount("/static", StaticFiles(directory="src/app/static"), name="static")
