@@ -7,7 +7,7 @@ router = APIRouter()
 templates: Jinja2Templates = get_templates()
 
 
-@router.get("/", response_class=HTMLResponse)
+@router.get("/", response_class=HTMLResponse, tags=["html"])
 async def home(request: Request):
     data = {"page": "Borkfolio - Home"}
     return templates.TemplateResponse(
@@ -15,7 +15,7 @@ async def home(request: Request):
     )
 
 
-@router.get("/about", response_class=HTMLResponse)
+@router.get("/about", response_class=HTMLResponse, tags=["html"])
 async def about(request: Request):
     data = {"page": "Borkfolio - About Site"}
     return templates.TemplateResponse(
@@ -23,8 +23,8 @@ async def about(request: Request):
     )
 
 
-@router.get("/boardgames", response_class=HTMLResponse)
-async def boardgames(request: Request):
+@router.get("/boardgames", response_class=HTMLResponse, tags=["html"])
+async def board_games(request: Request):
     data = {"page": "Borkfolio - Board Games"}
     return templates.TemplateResponse(
         name="boardgames.html", context={"request": request, "data": data}

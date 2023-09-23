@@ -1,12 +1,13 @@
-from time import sleep
+from asyncio import sleep
 
 import requests
-from app.models.BggCollection import BggCollection
-from app.models.BggSearchResultSet import BggSearchResultSet
 from fastapi import HTTPException
 
+from app.models.BggCollection import BggCollection
+from app.models.BggSearchResultSet import BggSearchResultSet
 
-def get_my_collection() -> BggCollection:
+
+async def get_my_collection() -> BggCollection:
     collection = None
     request = requests.get(
         "https://boardgamegeek.com/xmlapi2/collection?username=borkmeister&subtype=boardgame&own=1"
@@ -16,8 +17,8 @@ def get_my_collection() -> BggCollection:
         return BggCollection.from_xml(request.text)
 
     while request.status_code == 202 and collection is None:
-        sleep(3)
-        collection = get_my_collection()
+        await sleep(3)
+        collection = await get_my_collection()
 
     if collection:
         return collection
