@@ -1,17 +1,19 @@
-from app.external.bgg import get_my_collection
-from app.models.BggCollection import BggCollection
+from app.db import db_bg_collection, refresh_collection
+from app.models.BoardGame import BoardGame
 from fastapi import APIRouter
 
 router = APIRouter()
 
 
-@router.get("/api/boardgames", response_model=BggCollection, tags=["api"])
-async def board_games() -> BggCollection:
+@router.get("/api/boardgames", response_model=list[BoardGame], tags=["api"])
+async def board_games() -> list[BoardGame]:
     """Gets my collection of board games
 
     Data provided by BoardGameGeek
 
     Returns:
-        BggCollection
+        List[BoardGame]
     """
-    return await get_my_collection()
+    await refresh_collection()
+
+    return [bg for bg in db_bg_collection.find({})]

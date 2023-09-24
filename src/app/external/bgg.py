@@ -17,7 +17,7 @@ async def get_my_collection() -> BggCollection:
         return BggCollection.from_xml(request.text)
 
     while request.status_code == 202 and collection is None:
-        await sleep(3)
+        await sleep(4)
         collection = await get_my_collection()
 
     if collection:
