@@ -5,4 +5,4 @@ from dataclasses import dataclass
 class BoardGame:
     id: int
     name: str
-    year: int
+    year: int | None

@@ -4,7 +4,7 @@ from pydantic_xml import BaseXmlModel, attr, element, wrapped
 class BggSearchResultItem(BaseXmlModel, tag="item"):
     id: int = attr()
     name: str = wrapped("name", attr(name="value"))
-    year: int = wrapped("yearpublished", attr(name="value"))
+    year: int | None = wrapped("yearpublished", attr(name="value"))
 
 
 class BggSearchResultSet(BaseXmlModel, tag="items"):
