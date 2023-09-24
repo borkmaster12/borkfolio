@@ -1,6 +1,6 @@
 from app.db import db_bg_collection, refresh_collection
 from app.external.bgg import search_bgg_games
-from app.models.BggSearchResultItem import BggSearchResultItem
+from app.models.BggSearchResult import BggSearchResultItem
 from app.models.BoardGame import BoardGame
 from fastapi import APIRouter
 

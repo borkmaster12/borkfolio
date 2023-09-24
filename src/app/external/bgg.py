@@ -2,7 +2,7 @@ from asyncio import sleep
 
 import requests
 from app.models.BggCollection import BggCollection
-from app.models.BggSearchResultSet import BggSearchResultSet
+from app.models.BggSearchResult import BggSearchResultSet
 from fastapi import HTTPException
 
 
