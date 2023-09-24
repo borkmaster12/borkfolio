@@ -2,7 +2,7 @@ from app.db import db_bg_collection, refresh_collection
 from app.external.bgg import search_bgg_games
 from app.models.BggSearch import BggSearchResultItem
 from app.models.BoardGame import BoardGame
-from fastapi import APIRouter
+from fastapi import APIRouter, Form
 
 router = APIRouter()
 
@@ -24,7 +24,7 @@ async def get_my_board_games() -> list[BoardGame]:
 
 
 @router.post("/api/boardgames/search", response_model=list[BoardGame], tags=["api"])
-async def search_board_games(name: str) -> list[BggSearchResultItem]:
+async def search_board_games(name: str = Form(...)) -> list[BggSearchResultItem]:
     """Searches for board games using the provided query
 
     Data provided by BoardGameGeek
