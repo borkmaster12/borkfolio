@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (formData.get("name")) {
       const results = await searchBoardGames(formData);
       bgTable = document.querySelector("#searchResultTable");
+      bgTable.innerHTML = "";
       renderBoardGames("#searchResultTable", results);
     }
   }
