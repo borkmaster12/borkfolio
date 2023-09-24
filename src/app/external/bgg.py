@@ -1,10 +1,9 @@
 from asyncio import sleep
 
 import requests
-from fastapi import HTTPException
-
 from app.models.BggCollection import BggCollection
 from app.models.BggSearchResultSet import BggSearchResultSet
+from fastapi import HTTPException
 
 
 async def get_my_collection() -> BggCollection:
@@ -26,7 +25,7 @@ async def get_my_collection() -> BggCollection:
         raise HTTPException(request.status_code)
 
 
-def search_board_games(query: str) -> BggSearchResultSet:
+def search_bgg_games(query: str) -> BggSearchResultSet:
     query = query.replace(" ", "+")
     url = f"https://boardgamegeek.com/xmlapi2/search?query={query}&type=boardgame,boardgameexpansion"
     request = requests.get(url)
