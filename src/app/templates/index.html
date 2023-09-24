@@ -223,66 +223,8 @@
         <div class="row mb-5 justify-content-center">
           <h4 class="text-center mb-4">Interests</h4>
 
-          <div class="col-lg-3">
-            <div class="card mx-auto mb-3" style="width: 14rem">
-              <i
-                class="bi bi-joystick card-image-top text-center"
-                style="font-size: 5rem"
-              ></i>
-
-              <div class="card-body">
-                <h5 class="card-title text-center">Video Games</h5>
-
-                <p class="card-text">
-                  From retro to cutting edge, I love encountering unique and
-                  innovative game designs.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3">
-            <div class="card mx-auto mb-3" style="width: 14rem">
-              <i
-                class="bi bi-dice-3-fill card-image-top text-center"
-                style="font-size: 5rem"
-              ></i>
-
-              <div class="card-body">
-                <h5 class="card-title text-center mb-3">Tabletop Games</h5>
-
-                <p class="card-text">
-                  Our board game library occupies a significant portion of our
-                  living room wall space.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3">
-            <div class="card mx-auto" style="width: 14rem">
-              <i
-                class="bi bi-tools card-image-top text-center"
-                style="font-size: 5rem"
-              ></i>
-
-              <div class="card-body">
-                <h5 class="card-title text-center mb-3">Home Lab</h5>
-
-                <p class="card-text">
-                  I run an assortment of utility applications on my local
-                  network using a Synology DS920.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row mb-5 justify-content-center">
-          <h4 class="text-center mb-4">Interests</h4>
-
           <div class="col-md-12 col-lg-8">
-            <div class="accordion" id="accordionExample">
+            <div class="accordion" id="interestsAccordion">
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button
@@ -303,7 +245,7 @@
                 <div
                   id="collapseVideoGames"
                   class="accordion-collapse collapse"
-                  data-bs-parent="#accordionExample"
+                  data-bs-parent="#interestsAccordion"
                 >
                   <div class="accordion-body">
                     <p>
@@ -342,17 +284,18 @@
                       class="bi bi-dice-3-fill me-2"
                       style="font-size: 2rem; color: cornflowerblue"
                     ></i>
-                    <h5 class="ms-2 mb-0">Tabletop Games</h5>
+                    <h5 class="ms-2 mb-0">Board Games</h5>
                   </button>
                 </h2>
                 <div
                   id="collapseBoardGames"
                   class="accordion-collapse collapse"
-                  data-bs-parent="#accordionExample"
+                  data-bs-parent="#interestsAccordion"
                 >
                   <div class="accordion-body">
                     Our board game library occupies a significant portion of our
                     living room wall space.
+                    <a href="/boardgames">Have a suggestion?</a>
                   </div>
                 </div>
               </div>
@@ -378,7 +321,7 @@
                 <div
                   id="collapseHomeLab"
                   class="accordion-collapse collapse"
-                  data-bs-parent="#accordionExample"
+                  data-bs-parent="#interestsAccordion"
                 >
                   <div class="accordion-body">
                     <p>
@@ -481,6 +424,6 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-    <script src="/static/js/script.js"></script>
+    <script src="/static/js/scripts.js"></script>
   </body>
 </html>
