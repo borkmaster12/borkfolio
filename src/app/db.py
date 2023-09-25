@@ -9,6 +9,8 @@ db_client = MongitaClientDisk(host="./.mongita")
 db_bg_collection = db_client.boardgames.collection
 db_last_bg_collection_update = db_client.boardgames.lastupdate
 
+db_bg_suggestions = db_client.boardgames.suggestions
+
 
 async def refresh_collection() -> None:
     last_update_doc = db_last_bg_collection_update.find_one() or {}

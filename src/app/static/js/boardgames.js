@@ -14,30 +14,51 @@ document.addEventListener("DOMContentLoaded", () => {
     for (const bg of games) {
       const bgTR = document.createElement("tr");
       const bgRow = document.createElement("th");
+      const bgId = document.createElement("td");
       const bgName = document.createElement("td");
       const bgYear = document.createElement("td");
 
+      bgTR.addEventListener("click", addBoardGameRecommendation);
       bgRow.setAttribute("scope", "row");
+      bgId.setAttribute("name", "bgId");
+      bgName.setAttribute("name", "bgName");
+      bgYear.setAttribute("name", "bgYear");
+
+      bgId.style.display = "none";
 
       bgRow.innerHTML = rowNum;
+      bgId.innerHTML = bg.id;
       bgName.innerHTML = bg.name;
       bgYear.innerHTML = bg.year;
-      bgTR.append(bgRow, bgName, bgYear);
+      bgTR.append(bgRow, bgId, bgName, bgYear);
       bgTable.append(bgTR);
 
       rowNum++;
     }
   }
 
-  async function searchBoardGames(formData) {
-    const url = "/api/boardgames/search";
+  async function addBoardGameRecommendation(event) {
+    const id = event.currentTarget.querySelector("[name=bgId]").textContent;
+    const recommendation = { id: id };
+    console.log(recommendation);
+    try {
+      const response = await fetch("/api/boardgames/suggestions", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(recommendation)
+      });
+      const data = await response.json();
+      console.log(data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function searchBoardGames(gameName) {
+    const url = `/api/boardgames/search/${gameName}`;
 
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        body: formData,
-      });
-
+      const response = await fetch(url);
       return await response.json();
     } catch (error) {
       console.log(error);
@@ -47,8 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
   async function handleBgSearchForm(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    if (formData.get("name")) {
-      const results = await searchBoardGames(formData);
+    const bgName = formData.get("name");
+    if (bgName) {
+      const results = await searchBoardGames(bgName);
       bgTable = document.querySelector("#searchResultTable");
       bgTable.innerHTML = "";
       renderBoardGames("#searchResultTable", results);
