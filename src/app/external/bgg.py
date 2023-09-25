@@ -28,9 +28,9 @@ async def get_my_collection() -> BggCollection:
 def search_bgg_games(query: str) -> BggSearchResultSet:
     query = query.replace(" ", "+")
     url = f"https://boardgamegeek.com/xmlapi2/search?query={query}&type=boardgame,boardgameexpansion"
-    request = requests.get(url)
+    response = requests.get(url)
 
-    if request.status_code == 200:
-        return BggSearchResultSet.from_xml(request.text)
+    if response.status_code == 200:
+        return BggSearchResultSet.from_xml(response.content)
 
-    raise HTTPException(request.status_code)
+    raise HTTPException(response.status_code)
