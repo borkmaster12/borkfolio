@@ -18,7 +18,6 @@ async def get_my_board_games() -> list[BoardGame]:
     Returns:
         List[BoardGame]
     """
-    await refresh_collection()
 
     return [bg for bg in db_bg_collection.find({})]
 
