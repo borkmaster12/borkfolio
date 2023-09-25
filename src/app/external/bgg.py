@@ -2,7 +2,7 @@ from asyncio import sleep
 
 import requests
 from app.models.BggCollection import BggCollection
-from app.models.BggSearch import BggSearchResultSet
+from app.models.BggSearch import BggSearchResultItem, BggSearchResultSet
 from fastapi import HTTPException
 
 
@@ -34,3 +34,15 @@ def search_bgg_games(query: str) -> BggSearchResultSet:
         return BggSearchResultSet.from_xml(response.content)
 
     raise HTTPException(response.status_code)
+
+
+def search_bgg_game(id: int) -> BggSearchResultItem | None:
+    url = f"https://boardgamegeek.com/xmlapi2/thing?id={id}&type=boardgame,boardgameexpansion"
+    response = requests.get(url)
+
+    searchResult = BggSearchResultSet.from_xml(response.content)
+
+    if searchResult.boardGames:
+        return searchResult.boardGames[0]
+    else:
+        return None
