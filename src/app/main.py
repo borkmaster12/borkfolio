@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+from app.db import refresh_collection
 from app.jinja2.templating import get_templates
 from app.routers import board_games, html
 
@@ -15,9 +16,9 @@ app.mount("/static", StaticFiles(directory="src/app/static"), name="static")
 templates: Jinja2Templates = get_templates()
 
 
-@app.get("/api/test")
-async def test():
-    return {"message": "Hello World"}
+@app.on_event("startup")
+async def app_startup():
+    await refresh_collection()
 
 
 if __name__ == "__main__":
