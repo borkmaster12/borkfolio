@@ -11,7 +11,7 @@ templates: Jinja2Templates = get_templates()
 async def home(request: Request):
     data = {"page": "Borkfolio - Home"}
     return templates.TemplateResponse(
-        name="index.html", context={"request": request, "data": data}
+        name="index.html.j2", context={"request": request, "data": data}
     )
 
 
@@ -19,7 +19,7 @@ async def home(request: Request):
 async def about(request: Request):
     data = {"page": "Borkfolio - About Site"}
     return templates.TemplateResponse(
-        name="about.html", context={"request": request, "data": data}
+        name="about.html.j2", context={"request": request, "data": data}
     )
 
 
@@ -27,5 +27,5 @@ async def about(request: Request):
 async def board_games(request: Request):
     data = {"page": "Borkfolio - Board Games"}
     return templates.TemplateResponse(
-        name="boardgames.html", context={"request": request, "data": data}
+        name="boardgames.html.j2", context={"request": request, "data": data}
     )
