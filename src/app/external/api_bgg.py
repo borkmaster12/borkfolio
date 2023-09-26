@@ -6,7 +6,7 @@ from app.models.BggSearch import BggSearchResultItem, BggSearchResultSet
 from fastapi import HTTPException
 
 
-async def get_my_collection() -> BggCollection:
+async def get_my_bgg_collection() -> BggCollection:
     collection = None
     request = requests.get(
         "https://boardgamegeek.com/xmlapi2/collection?username=borkmeister&subtype=boardgame&own=1"
@@ -17,7 +17,7 @@ async def get_my_collection() -> BggCollection:
 
     while request.status_code == 202 and collection is None:
         await sleep(4)
-        collection = await get_my_collection()
+        collection = await get_my_bgg_collection()
 
     if collection:
         return collection
@@ -36,7 +36,7 @@ def search_bgg_games(query: str) -> BggSearchResultSet:
     raise HTTPException(response.status_code)
 
 
-def search_bgg_game(id: int) -> BggSearchResultItem | None:
+def get_bgg_game_details(id: int) -> BggSearchResultItem | None:
     url = f"https://boardgamegeek.com/xmlapi2/thing?id={id}&type=boardgame,boardgameexpansion"
     response = requests.get(url)
 
