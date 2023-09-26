@@ -7,7 +7,7 @@ from app.db import refresh_collection
 from app.jinja2.templating import get_templates
 from app.routers import board_games, html
 
-app = FastAPI(swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"})
+app = FastAPI()
 app.include_router(html.router)
 app.include_router(board_games.router)
 
