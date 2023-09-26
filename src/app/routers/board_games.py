@@ -4,12 +4,10 @@ from app.models.BggSearch import BggSearchResultItem
 from app.models.BoardGame import BoardGame, BoardGameId, BoardGameSuggestion
 from fastapi import APIRouter, HTTPException
 
-router = APIRouter()
+router = APIRouter(prefix="/api/boardgames")
 
 
-@router.get(
-    "/api/boardgames/mycollection", response_model=list[BoardGame], tags=["boardgames"]
-)
+@router.get("/mycollection", response_model=list[BoardGame], tags=["boardgames"])
 async def get_my_board_games() -> list[BoardGame]:
     """Gets my collection of board games
 
@@ -22,9 +20,7 @@ async def get_my_board_games() -> list[BoardGame]:
     return [bg for bg in db_bg_collection.find({})]
 
 
-@router.get(
-    "/api/boardgames/search/{name}", response_model=list[BoardGame], tags=["boardgames"]
-)
+@router.get("/search/{name}", response_model=list[BoardGame], tags=["boardgames"])
 async def search_board_games(name: str) -> list[BggSearchResultItem]:
     """Searches for board games using the provided game name
 
@@ -42,7 +38,7 @@ async def search_board_games(name: str) -> list[BggSearchResultItem]:
 
 
 @router.post(
-    "/api/boardgames/suggestions",
+    "/suggestions",
     response_model=BoardGameSuggestion,
     tags=["boardgames"],
 )
@@ -75,7 +71,7 @@ async def suggest_board_game(boardGameId: BoardGameId) -> dict:
 
 
 @router.get(
-    "/api/boardgames/suggestions",
+    "/suggestions",
     response_model=list[BoardGameSuggestion],
     tags=["boardgames"],
 )
