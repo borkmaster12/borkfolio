@@ -46,7 +46,7 @@ async def suggest_board_game(boardGameId: BoardGameId) -> dict:
     """Suggest a board game by providing its BoardGameGeek id
 
     Args:
-        boardGameId (BoardGameId): The BoardGameGeek game id of the target game
+        boardGameId (BoardGameId): The BoardGameGeek id of the target game
 
     Raises:
         HTTPException: 404 - No game found with the provided id
