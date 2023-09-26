@@ -57,7 +57,9 @@ async def suggest_board_game(boardGameId: BoardGameId) -> dict:
     searchResult = get_bgg_game_details(boardGameId.value)
 
     if searchResult is None:
-        raise HTTPException(status_code=404, detail="No game found with that id")
+        raise HTTPException(
+            status_code=404, detail=f"No game found with id {boardGameId.value}"
+        )
 
     suggestion = db_bg_suggestions.find_one({"id": boardGameId.value})
 
