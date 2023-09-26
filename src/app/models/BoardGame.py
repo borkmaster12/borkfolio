@@ -10,4 +10,12 @@ class BoardGame:
 
 @dataclass
 class BoardGameId:
+    value: int
+
+
+@dataclass
+class BoardGameSuggestion:
     id: int
+    name: str | None
+    year: int | None
+    count: int

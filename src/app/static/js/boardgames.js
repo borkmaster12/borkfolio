@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
   const bgCollectionEndpoint = "/api/boardgames/mycollection";
   const bgSuggestionEndpoint = "/api/boardgames/suggestions";
   const bgSearchEndpoint = (gameId) => `/api/boardgames/search/${gameId}`;
@@ -13,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     bgSearchResultTable.querySelector("tr[selected]");
   const updateSuggestSubmit = () =>
     (bgSuggestSubmit.disabled = !getRecommendationRow());
+  const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
   async function getMyBoardGames() {
     try {
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function renderBoardGames(bgTable, games) {
-    const bgRows = [];
+    const gamesToTRs = new Map();
     let rowNum = 1;
 
     bgTable.innerHTML = "";
@@ -71,12 +71,26 @@ document.addEventListener("DOMContentLoaded", () => {
       bgTR.append(bgRow, bgId, bgName, bgYear);
       bgTable.append(bgTR);
 
-      bgRows.push(bgTR);
+      gamesToTRs.set(bg, bgTR);
 
       rowNum++;
     }
 
-    return bgRows;
+    return gamesToTRs;
+  }
+
+  async function renderSuggestions(suggestions) {
+    const gamesToTRs = await renderBoardGames(bgSuggestionsTable, suggestions);
+
+    for (const [bg, bgRow] of gamesToTRs.entries()) {
+      const bgCount = document.createElement("td");
+      bgCount.setAttribute("name", "bgCount");
+      bgCount.innerHTML = bg.count;
+
+      bgRow.append(bgCount);
+    }
+
+    return gamesToTRs;
   }
 
   async function updateMyCollectionTable() {
@@ -86,13 +100,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function updateSuggestionsTable() {
-    await getSuggestions().then((games) =>
-      renderBoardGames(bgSuggestionsTable, games)
-    );
+    await getSuggestions().then((games) => renderSuggestions(games));
   }
 
   async function addBgRecommendation(gameId) {
-    const recommendation = { id: gameId };
+    const recommendation = { value: gameId };
     try {
       const response = await fetch(bgSuggestionEndpoint, {
         method: "POST",
@@ -122,9 +134,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const bgName = formData.get("name");
     if (bgName) {
       const results = await searchBoardGames(bgName);
-      const bgRows = await renderBoardGames(bgSearchResultTable, results);
-      for (const bgRow of bgRows) {
-        bgRow.addEventListener("mousedown", async (e) => {
+      const bgMap = await renderBoardGames(bgSearchResultTable, results);
+      for (const bgRow of bgMap.values()) {
+        bgRow.addEventListener("mousedown", (e) => {
           if (e.button == 0) selectBgSearchResultItem(e);
           updateSuggestSubmit();
         });
@@ -148,7 +160,5 @@ document.addEventListener("DOMContentLoaded", () => {
   updateSuggestionsTable();
 
   bgSearchForm.addEventListener("submit", async (e) => handleBgSearchSubmit(e));
-  bgSuggestForm.addEventListener("submit", async (e) =>
-    handleBgSuggestSubmit(e)
-  );
+  bgSuggestForm.addEventListener("submit", (e) => handleBgSuggestSubmit(e));
 });
