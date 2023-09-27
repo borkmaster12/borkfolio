@@ -1,19 +1,19 @@
 from dataclasses import dataclass
 
 
-@dataclass
+@dataclass(slots=True)
 class BoardGame:
     id: int
     name: str | None
     year: int | None
 
 
-@dataclass
+@dataclass()
 class BoardGameId:
     value: int
 
 
-@dataclass
+@dataclass(slots=True)
 class BoardGameSuggestion:
     id: int
     name: str | None
