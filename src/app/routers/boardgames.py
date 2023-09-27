@@ -9,7 +9,7 @@ router = APIRouter(prefix="/api/boardgames")
 
 
 @router.get("/mycollection", response_model=list[BoardGame], tags=["boardgames"])
-def get_my_board_games(
+async def get_my_board_games(
     db: MongitaClientDisk | MongitaClientMemory = Depends(get_db),
 ) -> list[BoardGame]:
     """Gets my collection of board games.
@@ -24,7 +24,7 @@ def get_my_board_games(
 
 
 @router.get("/search/{name}", response_model=list[BoardGame], tags=["boardgames"])
-def search_board_games(name: str) -> list[BggSearchResultItem]:
+async def search_board_games(name: str) -> list[BggSearchResultItem]:
     """Searches for board games using the provided game name.
 
     Data provided by BoardGameGeek
@@ -45,7 +45,7 @@ def search_board_games(name: str) -> list[BggSearchResultItem]:
     response_model=BoardGameSuggestion,
     tags=["boardgames"],
 )
-def suggest_board_game(
+async def suggest_board_game(
     boardGameId: BoardGameId,
     db: MongitaClientDisk | MongitaClientMemory = Depends(get_db),
 ) -> dict:
@@ -85,7 +85,7 @@ def suggest_board_game(
     response_model=list[BoardGameSuggestion],
     tags=["boardgames"],
 )
-def get_board_game_suggestions(
+async def get_board_game_suggestions(
     db: MongitaClientDisk | MongitaClientMemory = Depends(get_db),
 ) -> list[BoardGameSuggestion]:
     """Get the current list of board game suggestions.
