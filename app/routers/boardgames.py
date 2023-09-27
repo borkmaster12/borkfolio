@@ -72,7 +72,7 @@ async def suggest_board_game(
 
     if suggestion:
         suggestions.update_one({"id": boardGameId.value}, {"$inc": {"count": 1}})
-        suggestion.update["count"] += 1
+        suggestion["count"] += 1
     else:
         suggestion = {**searchResult.dict(), "count": 1}
         suggestions.insert_one(suggestion)
