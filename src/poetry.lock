@@ -170,13 +170,13 @@ files = [
 
 [[package]]
 name = "jinja2"
-version = "3.0.2"
+version = "3.1.2"
 description = "A very fast and expressive template engine."
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 files = [
-    {file = "Jinja2-3.0.2-py3-none-any.whl", hash = "sha256:8569982d3f0889eed11dd620c706d39b60c36d6d25843961f33f77fb6bc6b20c"},
-    {file = "Jinja2-3.0.2.tar.gz", hash = "sha256:827a0e32839ab1600d4eb1c4c33ec5a8edfbc5cb42dafa13b81f182f97784b45"},
+    {file = "Jinja2-3.1.2-py3-none-any.whl", hash = "sha256:6088930bfe239f0e6710546ab9c19c9ef35e29792895fed6e6e31a023a182a61"},
+    {file = "Jinja2-3.1.2.tar.gz", hash = "sha256:31351a702a408a9e7595a8fc6150fc3f43bb6bf7e319770cbc0db9df9437e852"},
 ]
 
 [package.dependencies]
@@ -797,4 +797,4 @@ standard = ["PyYAML (>=5.1)", "colorama (>=0.4)", "httptools (==0.2.*)", "python
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "2c4879a117719b239688bc918cdd2dd1c22e0acad408c25e846484426adb14c1"
+content-hash = "78ff2234ffbd2bc9b46b2abc4c19149e0b4560c451733e5cbadca016c94b8c50"
