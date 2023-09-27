@@ -3,14 +3,14 @@ from app.external.api_bgg import get_bgg_game_details, search_bgg_games
 from app.models.BggSearch import BggSearchResultItem
 from app.models.BoardGame import BoardGame, BoardGameId, BoardGameSuggestion
 from fastapi import APIRouter, Depends, HTTPException
-from mongita import MongitaClientDisk
+from mongita import MongitaClientDisk, MongitaClientMemory
 
 router = APIRouter(prefix="/api/boardgames")
 
 
 @router.get("/mycollection", response_model=list[BoardGame], tags=["boardgames"])
-async def get_my_board_games(
-    db: MongitaClientDisk = Depends(get_db),
+def get_my_board_games(
+    db: MongitaClientDisk | MongitaClientMemory = Depends(get_db),
 ) -> list[BoardGame]:
     """Gets my collection of board games.
 
@@ -24,7 +24,7 @@ async def get_my_board_games(
 
 
 @router.get("/search/{name}", response_model=list[BoardGame], tags=["boardgames"])
-async def search_board_games(name: str) -> list[BggSearchResultItem]:
+def search_board_games(name: str) -> list[BggSearchResultItem]:
     """Searches for board games using the provided game name.
 
     Data provided by BoardGameGeek
@@ -45,9 +45,9 @@ async def search_board_games(name: str) -> list[BggSearchResultItem]:
     response_model=BoardGameSuggestion,
     tags=["boardgames"],
 )
-async def suggest_board_game(
+def suggest_board_game(
     boardGameId: BoardGameId,
-    db: MongitaClientDisk = Depends(get_db),
+    db: MongitaClientDisk | MongitaClientMemory = Depends(get_db),
 ) -> dict:
     """Suggest a board game by providing its BoardGameGeek id.
 
@@ -72,7 +72,7 @@ async def suggest_board_game(
 
     if suggestion:
         suggestions.update_one({"id": boardGameId.value}, {"$inc": {"count": 1}})
-        suggestion["count"] += 1
+        suggestion.update["count"] += 1
     else:
         suggestion = {**searchResult.dict(), "count": 1}
         suggestions.insert_one(suggestion)
@@ -85,8 +85,8 @@ async def suggest_board_game(
     response_model=list[BoardGameSuggestion],
     tags=["boardgames"],
 )
-async def get_board_game_suggestions(
-    db: MongitaClientDisk = Depends(get_db),
+def get_board_game_suggestions(
+    db: MongitaClientDisk | MongitaClientMemory = Depends(get_db),
 ) -> list[BoardGameSuggestion]:
     """Get the current list of board game suggestions.
 
