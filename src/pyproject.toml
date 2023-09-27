@@ -15,10 +15,11 @@ aiofiles = "0.7.0"
 python-multipart = "0.0.5"
 jinja2 = "3.0.2"
 markdown = "3.3.4"
-pytest = "6.2.5"
+pytest = "*"
 pydantic-xml = "1.0.0"
 mongita = "^1.2.0"
 lxml = "^4.9.3"
+pytest-asyncio = "*"
 
 
 [build-system]
