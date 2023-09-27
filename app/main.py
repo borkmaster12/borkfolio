@@ -12,7 +12,7 @@ app.include_router(html.router)
 app.include_router(boardgames.router)
 
 
-app.mount("/static", StaticFiles(directory="src/app/static"), name="static")
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 templates: Jinja2Templates = get_templates()
 
 
