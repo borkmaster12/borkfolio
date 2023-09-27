@@ -1,15 +1,18 @@
-from app.db import db_bg_collection, db_bg_suggestions
+from app.db import get_db
 from app.external.api_bgg import get_bgg_game_details, search_bgg_games
 from app.models.BggSearch import BggSearchResultItem
 from app.models.BoardGame import BoardGame, BoardGameId, BoardGameSuggestion
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
+from mongita import MongitaClientDisk
 
 router = APIRouter(prefix="/api/boardgames")
 
 
 @router.get("/mycollection", response_model=list[BoardGame], tags=["boardgames"])
-async def get_my_board_games() -> list[BoardGame]:
-    """Gets my collection of board games
+async def get_my_board_games(
+    db: MongitaClientDisk = Depends(get_db),
+) -> list[BoardGame]:
+    """Gets my collection of board games.
 
     Data provided by BoardGameGeek
 
@@ -17,12 +20,12 @@ async def get_my_board_games() -> list[BoardGame]:
         List[BoardGame]
     """
 
-    return [bg for bg in db_bg_collection.find({})]
+    return [bg for bg in db.boardgames.collection.find({})]
 
 
 @router.get("/search/{name}", response_model=list[BoardGame], tags=["boardgames"])
 async def search_board_games(name: str) -> list[BggSearchResultItem]:
-    """Searches for board games using the provided game name
+    """Searches for board games using the provided game name.
 
     Data provided by BoardGameGeek
 
@@ -42,8 +45,11 @@ async def search_board_games(name: str) -> list[BggSearchResultItem]:
     response_model=BoardGameSuggestion,
     tags=["boardgames"],
 )
-async def suggest_board_game(boardGameId: BoardGameId) -> dict:
-    """Suggest a board game by providing its BoardGameGeek id
+async def suggest_board_game(
+    boardGameId: BoardGameId,
+    db: MongitaClientDisk = Depends(get_db),
+) -> dict:
+    """Suggest a board game by providing its BoardGameGeek id.
 
     Args:
         boardGameId (BoardGameId): The BoardGameGeek id of the target game
@@ -54,6 +60,7 @@ async def suggest_board_game(boardGameId: BoardGameId) -> dict:
     Returns:
         BoardGame
     """
+    suggestions = db.boardgames.suggestions
     searchResult = get_bgg_game_details(boardGameId.value)
 
     if searchResult is None:
@@ -61,13 +68,14 @@ async def suggest_board_game(boardGameId: BoardGameId) -> dict:
             status_code=404, detail=f"No game found with id {boardGameId.value}"
         )
 
-    suggestion = db_bg_suggestions.find_one({"id": boardGameId.value})
+    suggestion = suggestions.find_one({"id": boardGameId.value})
 
     if suggestion:
-        db_bg_suggestions.update_one({"id": boardGameId.value}, {"$inc": {"count": 1}})
+        suggestions.update_one({"id": boardGameId.value}, {"$inc": {"count": 1}})
+        suggestion["count"] += 1
     else:
         suggestion = {**searchResult.dict(), "count": 1}
-        db_bg_suggestions.insert_one(suggestion)
+        suggestions.insert_one(suggestion)
 
     return suggestion
 
@@ -77,11 +85,13 @@ async def suggest_board_game(boardGameId: BoardGameId) -> dict:
     response_model=list[BoardGameSuggestion],
     tags=["boardgames"],
 )
-async def get_board_game_suggestions() -> list[BoardGameSuggestion]:
-    """Get the current list of board game suggestions
+async def get_board_game_suggestions(
+    db: MongitaClientDisk = Depends(get_db),
+) -> list[BoardGameSuggestion]:
+    """Get the current list of board game suggestions.
 
     Returns:
-        list[BoardGameRecommendation]: The current list of board game suggestions
+        List[BoardGameRecommendation]
     """
-    suggestions = [bg for bg in db_bg_suggestions.find({})]
+    suggestions = [bg for bg in db.boardgames.suggestions.find({})]
     return suggestions
