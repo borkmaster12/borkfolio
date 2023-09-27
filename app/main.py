@@ -4,8 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from app.db import get_db, refresh_collection
-from app.jinja2.templating import get_templates
-from app.routers import boardgames, html
+from app.templating import get_templates
 
 app = FastAPI()
 app.include_router(html.router)
