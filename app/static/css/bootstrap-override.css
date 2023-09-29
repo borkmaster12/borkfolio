@@ -1,3 +1,38 @@
+@import url(//fonts.googleapis.com/css?family=Proxima+Nova);
+
 .list-group-item {
   border: 0;
+}
+
+:root {
+  --theme-primary: #0d1321;
+  --theme-primary-rgb: 13, 19, 33;
+  --theme-secondary: #e0f2f5;
+  --theme-secondary-rgb: 241, 237, 244;
+  --theme-tertiary: #279af1;
+  --theme-tertiary-rgb: 39, 154, 241;
+  --theme-quaternary: #246a73;
+  --theme-quaternary-rgb: 36, 106, 115;
+  --theme-quinary: #2596be;
+  --theme-quinary-rgb: 37, 150, 190;
+}
+
+[data-bs-theme="dark"] {
+  --bs-body-bg: var(--theme-primary);
+  --bs-body-color: var(--theme-secondary);
+  --bs-card-color: var(--theme-secondary);
+  --bs-card-cap-color: var(--theme-secondary);
+  --bs-heading-color: var(--theme-secondary);
+  --bs-link-color-rgb: var(--theme-tertiary-rgb);
+  --bs-border-color: var(--theme-quaternary);
+  --bs-border-color-translucent: var(--theme-quaternary);
+  --bs-emphasis-color-rgb: var(--theme-quinary-rgb);
+  --bs-link-hover-color-rgb: var(--theme-quinary-rgb);
+  --bs-link-opacity: 1;
+  --bs-border-width: 0.15rem;
+  --bs-font-sans-serif: "Proxima Nova", system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --bs-body-font-size: 1.1rem;
+  --bs-nav-link-font-weight: 600;
 }
