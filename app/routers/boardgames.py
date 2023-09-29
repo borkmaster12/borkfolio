@@ -1,9 +1,11 @@
+from better_profanity import profanity
+from fastapi import APIRouter, Depends, HTTPException
+from mongita import MongitaClientDisk, MongitaClientMemory
+
 from app.db import get_db
 from app.external.api_bgg import get_bgg_game_details, search_bgg_games
 from app.models.BggSearch import BggSearchResultItem
 from app.models.BoardGame import BoardGame, BoardGameId, BoardGameSuggestion
-from fastapi import APIRouter, Depends, HTTPException
-from mongita import MongitaClientDisk, MongitaClientMemory
 
 router = APIRouter(prefix="/api/boardgames")
 
@@ -66,6 +68,24 @@ async def suggest_board_game(
     if searchResult is None:
         raise HTTPException(
             status_code=404, detail=f"No game found with id {boardGameId.value}"
+        )
+
+    if not searchResult.minage:
+        raise HTTPException(
+            status_code=422,
+            detail="Unable to confirm the age rating on that game",
+        )
+
+    if searchResult.minage and searchResult.minage >= 17:
+        raise HTTPException(
+            status_code=422,
+            detail="No games with an age rating of 17+",
+        )
+
+    if profanity.contains_profanity(searchResult.name):
+        raise HTTPException(
+            status_code=422,
+            detail="Keep the suggestions clean please",
         )
 
     suggestion = suggestions.find_one({"id": boardGameId.value})

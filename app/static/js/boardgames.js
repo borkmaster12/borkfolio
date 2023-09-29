@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const updateSuggestSubmit = () =>
     (bgSuggestSubmit.disabled = !getRecommendationRow());
   const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+  const toast = document.getElementById("liveToast");
 
   async function getMyBoardGames() {
     try {
@@ -111,10 +112,17 @@ document.addEventListener("DOMContentLoaded", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(recommendation),
       });
-      await response.json();
-      await updateSuggestionsTable();
+      const data = await response.json();
+
+      if (response.status == 200) {
+        await updateSuggestionsTable();
+      } else {
+        throw new Error(data.detail);
+      }
     } catch (error) {
       console.log(error);
+      toast.querySelector(".toast-body").innerHTML = error.message;
+      new bootstrap.Toast(toast).show();
     }
   }
 

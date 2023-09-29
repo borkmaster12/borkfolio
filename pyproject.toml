@@ -20,6 +20,7 @@ pydantic-xml = "1.0.0"
 mongita = "^1.2.0"
 lxml = "^4.9.3"
 pytest-asyncio = "0.20.3"
+better-profanity = "^0.7.0"
 
 
 [build-system]

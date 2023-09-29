@@ -6,6 +6,7 @@ class BggSearchResultItem(BaseXmlModel, tag="item", search_mode=SearchMode.ORDER
     id: int = attr()
     name: str = wrapped("name", attr(name="value"))
     year: int | None = wrapped("yearpublished", attr(name="value"))
+    minage: int | None = wrapped("minage", attr(name="value"))
 
 
 class BggSearchResultSet(BaseXmlModel, tag="items"):
