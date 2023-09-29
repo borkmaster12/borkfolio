@@ -15,7 +15,7 @@ async def get_monty_info(request: Request) -> Pet:
     return Pet(
         name="Montegue (Monty) Fairbanks",
         type="cat",
-        age=7,
+        age=6,
         notes=["Sovereign of the flying circus"],
         likes=[
             "Playing hide-and-go-treat",
@@ -27,8 +27,8 @@ async def get_monty_info(request: Request) -> Pet:
         ],
         specialties=["cursing", "sleeping"],
         pics=[
-            f"{request.base_url}static/img/379986294_982995286328998_5782154564252338453_n.jpg",
-            f"{request.base_url}static/img/380632215_1049008186255377_7190735956088332287_n.jpg",
+            f"{request.base_url}static/img/379986294_982995286328998_5782154564252338453_n.webp",
+            f"{request.base_url}static/img/380632215_1049008186255377_7190735956088332287_n.webp",
         ],
     )
 
@@ -43,7 +43,7 @@ async def get_pups_info(request: Request) -> list[Pet]:
     luna = Pet(
         name="Luna",
         type="dog",
-        age=4,
+        age=3,
         notes=["Dreams of being a professional wrestler"],
         likes=[
             "Sneaking Lilah's leftovers when no one is looking",
@@ -55,15 +55,15 @@ async def get_pups_info(request: Request) -> list[Pet]:
         ],
         specialties=["brute force", "cunning"],
         pics=[
-            f"{request.base_url}static/img/379896654_296836483048473_3487578070392932379_n.jpg",
-            f"{request.base_url}static/img/380523617_657248069834716_8092252126681897164_n.jpg",
+            f"{request.base_url}static/img/379896654_296836483048473_3487578070392932379_n.webp",
+            f"{request.base_url}static/img/380523617_657248069834716_8092252126681897164_n.webp",
         ],
     )
 
     lilah = Pet(
         name="Lilah",
         type="dog",
-        age=4,
+        age=3,
         notes=["For instant hype mode, play 'Gourmet Race' from the Kirby ost"],
         likes=[
             "Sniffing Monty for more than 10 consecutive seconds",
@@ -75,7 +75,7 @@ async def get_pups_info(request: Request) -> list[Pet]:
         ],
         specialties=["speed", "evasion"],
         pics=[
-            f"{request.base_url}static/img/379987414_640016554930235_7967718570286921746_n.jpg",
+            f"{request.base_url}static/img/379987414_640016554930235_7967718570286921746_n.webp",
         ],
     )
 
