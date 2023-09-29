@@ -36,3 +36,20 @@
   --bs-body-font-size: 1.1rem;
   --bs-nav-link-font-weight: 600;
 }
+
+.accordion {
+  --bs-accordion-bg: rgba(var(--bs-body-color-rgb), 0.01);
+}
+
+.card {
+  --bs-card-bg: rgba(var(--bs-body-color-rgb), 0.02);
+  --bs-card-cap-bg: rgba(var(--bs-body-color-rgb), 0.03);
+}
+
+.list-group-item {
+  background-color: rgba(var(--bs-body-color-rgb), 0.004);
+}
+
+.navbar {
+  background-color: rgba(var(--bs-body-color-rgb), 0.04);
+}
