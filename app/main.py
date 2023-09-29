@@ -7,7 +7,7 @@ from app.db import get_db, refresh_collection
 from app.routers import boardgames, html, pets
 from app.templating import get_templates
 
-app = FastAPI()
+app = FastAPI(title="Borkfolio")
 app.include_router(html.router)
 app.include_router(boardgames.router)
 app.include_router(pets.router)
