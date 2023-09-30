@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "app"
-version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
+version = "1.0.0"
+description = "Borkfolio"
+authors = ["Matthew Ashley <mtashley92@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
