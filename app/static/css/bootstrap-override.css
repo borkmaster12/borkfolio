@@ -9,8 +9,8 @@
   --theme-primary-rgb: 13, 19, 33;
   --theme-secondary: #e0f2f5;
   --theme-secondary-rgb: 241, 237, 244;
-  --theme-tertiary: #279af1;
-  --theme-tertiary-rgb: 39, 154, 241;
+  --theme-tertiary: #111725;
+  --theme-tertiary-rgb: 17, 23, 37;
   --theme-quaternary: #246a73;
   --theme-quaternary-rgb: 36, 106, 115;
   --theme-quinary: #2596be;
@@ -23,11 +23,11 @@
   --bs-card-color: var(--theme-secondary);
   --bs-card-cap-color: var(--theme-secondary);
   --bs-heading-color: var(--theme-secondary);
-  --bs-link-color-rgb: var(--theme-tertiary-rgb);
   --bs-border-color: var(--theme-quaternary);
   --bs-border-color-translucent: var(--theme-quaternary);
   --bs-emphasis-color-rgb: var(--theme-quinary-rgb);
   --bs-link-hover-color-rgb: var(--theme-quinary-rgb);
+  --bs-link-color-rgb: 39, 154, 241;
   --bs-link-opacity: 1;
   --bs-border-width: 0.15rem;
   --bs-font-sans-serif: "Proxima Nova", system-ui, -apple-system, "Segoe UI",
@@ -38,18 +38,17 @@
 }
 
 .accordion {
-  --bs-accordion-bg: rgba(var(--bs-body-color-rgb), 0.01);
+  /* --bs-accordion-bg: rgba(var(--bs-body-color-rgb), 0.01); */
+  --bs-accordion-bg: var(--theme-tertiary);
 }
 
 .card {
-  --bs-card-bg: rgba(var(--bs-body-color-rgb), 0.02);
-  --bs-card-cap-bg: rgba(var(--bs-body-color-rgb), 0.03);
+  /* --bs-card-bg: rgba(var(--bs-body-color-rgb), 0.02); */
+  --bs-card-bg: var(--theme-tertiary);
 }
 
-.list-group-item {
-  background-color: rgba(var(--bs-body-color-rgb), 0.004);
-}
-
+.list-group-item,
 .navbar {
-  background-color: rgba(var(--bs-body-color-rgb), 0.04);
+  /* background-color: rgba(var(--bs-body-color-rgb), 0.004); */
+  background-color: var(--theme-tertiary);
 }
